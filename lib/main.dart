@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Go server demo'),
+      home: MyHomePage(title: 'local Go server'),
     );
   }
 }
@@ -41,25 +41,26 @@ typedef Serve = void Function(int, ffi.Pointer<Utf8>);
 
 class _MyHomePageState extends State<MyHomePage> {
   int _port = 9090;
-  Isolate _isolate;
   bool _running = false;
   String _body = "";
+  final _client = http.Client();
 
   void _startServer() async {
+    if (_running || Config.localDev) return;
     Directory supportDir = await getApplicationSupportDirectory();
     String dir = supportDir.path;
     log('application support directory: $dir');
     int p = await getUnusedPort();
     setState(() {
       _port = p;
+      _running = true;
     });
-    _running = true;
-    _isolate = await Isolate.spawn(_launchServer, [p, dir]);
+    await Isolate.spawn(_launchServer, [p, dir]);
   }
 
   static void _launchServer(List<Object> args) async {
     int p = args[0];
-    String sd = args[1];
+    String dir = args[1];
 
     final dylib = () {
       if (Platform.isIOS) {
@@ -69,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }();
     final Serve serve =
         dylib.lookup<ffi.NativeFunction<serve_func>>('serve').asFunction();
-    serve(p, sd.toNativeUtf8());
+    serve(p, dir.toNativeUtf8());
     log('finished go server');
   }
 
@@ -82,8 +83,8 @@ class _MyHomePageState extends State<MyHomePage> {
     return port;
   }
 
-  void fetch() async {
-    http.Response res = await http.get(Uri.http('localhost:$_port', '/'));
+  void _fetch() async {
+    final res = await _client.get(Uri.http('localhost:$_port', '/'));
     if (res.statusCode == 200) {
       setState(() {
         _body = res.body;
@@ -101,28 +102,19 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'Port:',
-            ),
-            SelectableText(
-              '$_port',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            TextButton(onPressed: fetch, child: Text('get body')),
+            if (_running)
+              Text(
+                'server port: $_port',
+              ),
+            if (_running) TextButton(onPressed: _fetch, child: Text('fetch')),
             Text('$_body'),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _running
-            ? () {}
-            : () {
-                if (!Config.localDev) {
-                  _startServer();
-                }
-              },
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+        onPressed: _startServer,
+        tooltip: 'Launch server',
+        child: Icon(Icons.launch),
       ),
     );
   }
