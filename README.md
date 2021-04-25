@@ -41,6 +41,14 @@ flutter build {macos, ios}
 
 - Hot reload doesn't work (workaround: run Go server independently on the development phase)
 
+## Q&A
+
+### Why .dylib instead of .a as a iOS library?
+Because I can despite official docs prefer .a. In fact I haven't even tried .a.
+
+### App crashes when I hit fetch button repeatedly and quickly on iOS
+Yeah please fix them.
+
 ## Contribution
 
-I welcome stuff implemented for other platforms.
+I'd like to see stuff working on other platforms.
