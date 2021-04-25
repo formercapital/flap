@@ -1,16 +1,46 @@
 # flap
 
-A new Flutter project.
+Working proof of the local Go server running within Flutter
 
-## Getting Started
+## Prerequisites
 
-This project is a starting point for a Flutter application.
+- [Flutter](https://flutter.dev) < 2.0
+- [Go](https://golang.org) < 1.16
 
-A few resources to get you started if this is your first Flutter project:
+## Build Go server
+```
+cd go
+```
+macOS:
+```
+make macos
+```
+iOS:
+```
+make ios
+```
+iOS Simulator:
+```
+make ios-simulator
+```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Run app
+```
+cd ..
+flutter devices
+flutter run -d {target}
+```
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Build app
+```
+flutter build {macos, ios}
+```
+
+
+## Known issues
+
+- Hot reload doesn't work (workaround: run Go server independently on the development phase)
+
+## Contribution
+
+I welcome stuff implemented for other platforms.
