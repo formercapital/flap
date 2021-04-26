@@ -1,6 +1,13 @@
 # flap
 
+<div>
+<img align="left" width="100" height="100" src="https://raw.githubusercontent.com/capitalpidx/flap/master/art/logo.png">
+<br/>
+<p>
 Working proof of the local Go server running within Flutter
+</p>
+<br/>
+</div>
 
 ## Prerequisites
 
