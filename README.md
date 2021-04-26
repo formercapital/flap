@@ -43,7 +43,7 @@ flutter build {macos, ios}
 
 ## Q&A
 
-### Why .dylib instead of .a as a iOS library?
+### Why .dylib instead of .a as an iOS library?
 Because I can despite official docs prefer .a. In fact I haven't even tried .a.
 
 ### App crashes when I hit fetch button repeatedly and quickly on iOS
