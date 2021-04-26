@@ -5,3 +5,5 @@
 ios/*.dylib
 macos/*.dylib
 build/
+ios/server-ios.h
+macos/server-macos.h
