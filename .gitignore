@@ -7,3 +7,4 @@ macos/*.dylib
 build/
 ios/server-ios.h
 macos/server-macos.h
+.DS_Store
