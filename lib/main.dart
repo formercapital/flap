@@ -102,11 +102,9 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            if (_running)
-              Text(
-                'server port: $_port',
-              ),
-            if (_running) TextButton(onPressed: _fetch, child: Text('fetch')),
+            if (_running || Config.localDev) Text('server port: $_port'),
+            if (_running || Config.localDev)
+              TextButton(onPressed: _fetch, child: Text('fetch')),
             Text('$_body'),
           ],
         ),
