@@ -43,7 +43,6 @@ class _MyHomePageState extends State<MyHomePage> {
   int _port = 9090;
   bool _running = false;
   String _body = "";
-  final _client = http.Client();
 
   void _startServer() async {
     if (_running || Config.localDev) return;
@@ -84,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _fetch() async {
-    final res = await _client.get(Uri.http('localhost:$_port', '/'));
+    final res = await http.get(Uri.http('localhost:$_port', '/'));
     if (res.statusCode == 200) {
       setState(() {
         _body = res.body;
