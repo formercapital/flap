@@ -5,6 +5,8 @@
 Working proof of the Go server running inside Flutter
 </p>
 
+[Video in action](https://www.youtube.com/watch?v=4DPL5F2DVdc)
+
 ## Prerequisites
 
 - [Flutter](https://flutter.dev) >2.0
