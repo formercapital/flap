@@ -5,7 +5,7 @@ package main
 import (
 	"strconv"
 
-	"github.com/capitalpidx/flap/go/server"
+	"github.com/errtokyo/flap/go/server"
 )
 
 import "C"

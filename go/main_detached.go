@@ -3,7 +3,7 @@
 package main
 
 import (
-	"github.com/capitalpidx/flap/go/server"
+	"github.com/errtokyo/flap/go/server"
 	"log"
 )
 
